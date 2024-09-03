@@ -1,18 +1,21 @@
-﻿using Code.Gameplay.Cameras.Provider;
-using Code.Gameplay.Cameras.Systems;
+﻿using Code.Gameplay.Cameras.Systems;
 using Code.Gameplay.Features.Hero.Systems;
+using Code.Infrastructure.Systems;
 
 namespace Code.Gameplay.Features.Hero
 {
-    public class HeroFeature : Feature
+  public sealed class HeroFeature : Feature
+  {
+    public HeroFeature(ISystemFactory systems)
     {
-        public HeroFeature(GameContext gameContext, ICameraProvider cameraProvider)
-        {
-            Add(new SetHeroDirectionByInputSystem(gameContext));
-            
-            Add(new CameraFollowHeroSystem(gameContext, cameraProvider));
-            
-            Add(new AnimateHeroMovementSystem(gameContext));
-        }
+      Add(systems.Create<InitializeHeroSystem>());
+      
+      Add(systems.Create<SetHeroDirectionByInputSystem>());
+      Add(systems.Create<CameraFollowHeroSystem>());
+      Add(systems.Create<AnimateHeroMovementSystem>());
+      Add(systems.Create<HeroDeathSystem>());
+      
+      Add(systems.Create<FinalizeHeroDeathProcessingSystem>());
     }
+  }
 }
