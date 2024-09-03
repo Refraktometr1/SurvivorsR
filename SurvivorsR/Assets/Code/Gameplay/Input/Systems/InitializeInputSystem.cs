@@ -3,11 +3,12 @@ using Entitas;
 
 namespace Code.Gameplay.Input.Systems
 {
-    public class InitializeInputSystem : IInitializeSystem
+  public class InitializeInputSystem : IInitializeSystem
+  {
+    public void Initialize()
     {
-        public void Initialize()
-        {
-            CreateEntity.Empty().isInput = true;
-        }
+      CreateInputEntity.Empty()
+        .isInput = true;
     }
+  }
 }

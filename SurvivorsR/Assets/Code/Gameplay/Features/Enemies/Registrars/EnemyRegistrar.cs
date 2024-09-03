@@ -22,8 +22,6 @@ namespace Code.Gameplay.Features.Enemies.Registrars
                 .AddTransform(transform)
                 .AddWorldPosition(transform.position)
                 .AddDirection(Vector2.zero)
-                .AddAggroRadius(AggroRadius)
-                .AddPursuitRadius(PursuitRadius)
                 .With(x => x.isEnemy = true)
                 .With(x => x.isMoving = false);
         }
