@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b9d49a8df3e48aaaaf91f3aada9ccaa, type: 3}
+  m_Script: {fileID: 11500000, guid: 9833df43fb064a3199752651eaefcfde, type: 3}
   m_Name: VegetableBoltConfig
   m_EditorClassIdentifier: 
   AbilityId: 1
@@ -45,7 +45,7 @@ MonoBehaviour:
       Speed: 2
       Pierce: 3
       ContactRadius: 0.1
-      Lifetime: 4
+      Lifetime: 3
       OrbitRadius: 0
     AuraSetup:
       Radius: 0
@@ -63,14 +63,14 @@ MonoBehaviour:
       Speed: 2
       Pierce: 3
       ContactRadius: 0.1
-      Lifetime: 4
+      Lifetime: 3
       OrbitRadius: 0
     AuraSetup:
       Radius: 0
       Interval: 0
   - Icon: {fileID: -219949570, guid: d5b38a44d661b59469b9795112af70db, type: 3}
     Description: Increased speed
-    Cooldown: 0.5
+    Cooldown: 0.6
     ViewPrefab: {fileID: 6295621220853740386, guid: 08ce9f5922001044d87f0b92a159a8c4, type: 3}
     EffectSetups:
     - EffectTypeId: 1

@@ -1,32 +1,28 @@
-﻿using Entitas;
+using Entitas;
 
 namespace Code.Gameplay.Features.Hero.Systems
 {
-    public class AnimateHeroMovementSystem : IExecuteSystem
+  public class AnimateHeroMovementSystem : IExecuteSystem
+  {
+    private readonly IGroup<GameEntity> _heroes;
+
+    public AnimateHeroMovementSystem(GameContext game)
     {
-        private readonly IGroup<GameEntity> _inputs;
-        private readonly IGroup<GameEntity> _heroes;
-
-        public AnimateHeroMovementSystem(GameContext gameContext )
-        {
-            _heroes =  gameContext.GetGroup(GameMatcher.
-                AllOf(GameMatcher.Hero, GameMatcher.HeroAnimator));
-        }
-
-        public void Execute()
-        {
-            foreach (var hero in _heroes)
-            {
-                if (hero.isMoving)
-                {
-                    hero.HeroAnimator.PlayMove();
-                }
-                else
-                {
-                    hero.HeroAnimator.PlayIdle();
-                }
-            }
-           
-        }
+      _heroes = game.GetGroup(GameMatcher
+        .AllOf(
+          GameMatcher.Hero,
+          GameMatcher.HeroAnimator));
     }
+    
+    public void Execute()
+    {
+      foreach (GameEntity hero in _heroes)
+      {
+        if(hero.isMoving)
+          hero.HeroAnimator.PlayMove();
+        else
+          hero.HeroAnimator.PlayIdle();
+      }
+    }
+  }
 }
