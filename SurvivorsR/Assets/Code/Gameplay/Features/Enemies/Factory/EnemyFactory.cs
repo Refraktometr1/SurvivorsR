@@ -4,6 +4,7 @@ using Code.Common.Entity;
 using Code.Common.Extensions;
 using Code.Gameplay.Features.CharacterStats;
 using Code.Gameplay.Features.Effects;
+using Code.Gameplay.StaticData;
 using Code.Infrastructure.Identifiers;
 using UnityEngine;
 
@@ -12,10 +13,12 @@ namespace Code.Gameplay.Features.Enemies.Factory
   public class EnemyFactory : IEnemyFactory
   {
     private readonly IIdentifierService _identifiers;
+    private readonly IStaticDataService _staticDataService;
 
-    public EnemyFactory(IIdentifierService identifiers)
+    public EnemyFactory(IIdentifierService identifiers, IStaticDataService staticDataService)
     {
       _identifiers = identifiers;
+      _staticDataService = staticDataService;
     }
     
     public GameEntity CreateEnemy(EnemyTypeId typeId, Vector3 position)
@@ -31,29 +34,32 @@ namespace Code.Gameplay.Features.Enemies.Factory
 
     private GameEntity CreateGoblin(Vector2 at)
     {
-      Dictionary<Stats, float> baseStats = InitStats.EmptyStatDictionary()
-          .With(x => x[Stats.Speed] = 1)
-          .With(x => x[Stats.MaxHp] = 3)
-          .With(x => x[Stats.Damage] = 1);
+      var config = _staticDataService.GetEnemyConfig(EnemyTypeId.Goblin);
+
+      Dictionary<Stats, float> baseStats = InitStats.Enemy(config);
+
+      GameEntity baseEnemy = CreateEntity.Empty()
+        .AddId(_identifiers.Next())
+        .AddEnemyTypeId(config.EnemyTypeId)
+        .AddDirection(Vector2.zero)
+        .AddBaseStats(baseStats)
+        .AddStatModifiers(InitStats.EmptyStatDictionary())
+        .AddSpeed(config.Speed)
+        .AddCurrentHp(config.MaxHp)
+        .AddMaxHp(config.MaxHp)
+        .AddEffectSetups(new List<EffectSetup>{new EffectSetup(){EffectTypeId = EffectTypeId.Damage, Value = config.Damage}})
+        .With(x => x.isEnemy = true)
+        ;
       
-      return CreateEntity.Empty()
-          .AddId(_identifiers.Next())
-          .AddEnemyTypeId(EnemyTypeId.Goblin)
+      
+      return baseEnemy
           .AddWorldPosition(at)
-          .AddDirection(Vector2.zero)
-          .AddBaseStats(baseStats)
-          .AddStatModifiers(InitStats.EmptyStatDictionary())
-          .AddSpeed(baseStats[Stats.Speed])
-          .AddCurrentHp(baseStats[Stats.MaxHp])
-          .AddMaxHp(baseStats[Stats.MaxHp])
-          .AddEffectSetups(new List<EffectSetup>{new EffectSetup(){EffectTypeId = EffectTypeId.Damage, Value = baseStats[Stats.Damage]}})
           .AddRadius(0.3f)
           .AddTargetBuffer(new List<int>(1))
           .AddCollectTargetsInterval(0.5f)
           .AddCollectTargetsTimer(0f)
           .AddLayerMask(CollisionLayer.Hero.AsMask())
           .AddViewPath("Gameplay/Enemies/Goblins/Torch/goblin_torch_blue")
-          .With(x => x.isEnemy = true)
           .With(x => x.isTurnedAlongDirection = true)
           .With(x => x.isMovementAvailable = true)
         ;

@@ -2,6 +2,7 @@
 using Code.Gameplay.Features.Abilities;
 using Code.Gameplay.Features.Abilities.Configs;
 using Code.Gameplay.Features.Enchants;
+using Code.Gameplay.Features.Enemies;
 using Code.Gameplay.Features.Loot;
 using Code.Gameplay.Features.Loot.Configs;
 using Code.Gameplay.Windows;
@@ -25,5 +26,6 @@ namespace Code.Gameplay.StaticData
     AfkGainConfig AfkGain { get; }
     ShopItemConfig GetShopItemConfig(ShopItemId shopItemId);
     List<ShopItemConfig> GetShopItemConfigs();
+    EnemyConfig GetEnemyConfig(EnemyTypeId typeId);
   }
 }
