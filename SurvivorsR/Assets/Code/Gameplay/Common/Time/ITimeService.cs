@@ -8,5 +8,7 @@ namespace Code.Gameplay.Common.Time
     DateTime UtcNow { get; }
     void StopTime();
     void StartTime();
+    float GetElapsedTimeOnCurentLevel();
+    void StartLevelTimer();
   }
 }

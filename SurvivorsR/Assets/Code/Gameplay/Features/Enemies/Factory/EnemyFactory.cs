@@ -18,12 +18,12 @@ namespace Code.Gameplay.Features.Enemies.Factory
       _identifiers = identifiers;
     }
     
-    public GameEntity CreateEnemy(EnemyTypeId typeId, Vector3 at)
+    public GameEntity CreateEnemy(EnemyTypeId typeId, Vector3 position)
     {
       switch (typeId)
       {
         case EnemyTypeId.Goblin:
-          return CreateGoblin(at);
+          return CreateGoblin(position);
       }
 
       throw new Exception($"Enemy with type id {typeId} does not exist");

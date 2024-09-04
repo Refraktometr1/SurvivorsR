@@ -10,6 +10,7 @@ using Code.Gameplay.Features.Armaments.Factory;
 using Code.Gameplay.Features.Effects.Factory;
 using Code.Gameplay.Features.Enchants.UIFactory;
 using Code.Gameplay.Features.Enemies.Factory;
+using Code.Gameplay.Features.Enemies.Services;
 using Code.Gameplay.Features.Hero.Factory;
 using Code.Gameplay.Features.Statuses.Applier;
 using Code.Gameplay.Features.Statuses.Factory;
@@ -110,6 +111,7 @@ namespace Code.Infrastructure.Installers
       Container.Bind<IStatusApplier>().To<StatusApplier>().AsSingle();
       Container.Bind<ILevelUpService>().To<LevelUpService>().AsSingle();
       Container.Bind<IAbilityUpgradeService>().To<AbilityUpgradeService>().AsSingle();
+      Container.Bind<IEnemySpawnService>().To<EnemySpawnService>().AsSingle();
     }
 
     private void BindGameplayFactories()
