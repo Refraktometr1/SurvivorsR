@@ -1,4 +1,5 @@
 ﻿using Code.Common.Entity;
+using Code.Gameplay.Common.Time;
 using Code.Gameplay.StaticData;
 
 namespace Code.Gameplay.Features.LevelUp.Services
@@ -11,9 +12,13 @@ namespace Code.Gameplay.Features.LevelUp.Services
     public float ExperienceForLevelUp => _staticData.ExperienceForLevel(CurrentLevel + 1);
 
     private readonly IStaticDataService _staticData;
+    private readonly ITimeService _timeService;
 
-    public LevelUpService(IStaticDataService staticData) =>
+    public LevelUpService(IStaticDataService staticData, ITimeService timeService)
+    {
       _staticData = staticData;
+      _timeService = timeService;
+    }
 
     public void AddExperience(float value)
     {
@@ -33,6 +38,7 @@ namespace Code.Gameplay.Features.LevelUp.Services
       
       CurrentExperience -= experienceForLevelUp;
       CurrentLevel++;
+      _timeService.StartLevelTimer();
 
       CreateEntity.Empty().isLevelUp = true;
 
