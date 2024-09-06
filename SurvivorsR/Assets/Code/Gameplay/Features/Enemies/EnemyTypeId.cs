@@ -4,5 +4,7 @@
   {
     Unknown = 0,
     Goblin = 1,
+    PigDogs = 2,
+    
   }
 }

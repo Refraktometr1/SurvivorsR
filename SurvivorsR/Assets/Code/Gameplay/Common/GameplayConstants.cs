@@ -2,6 +2,6 @@
 {
   public class GameplayConstants
   {
-    public const float EnemySpawnTimer = 10;
+    public const float EnemySpawnTimer = 2;
   }
 }
